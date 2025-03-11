@@ -18,6 +18,11 @@ class HouseService {
     }
     return house
   }
+
+  getHousesByQuery(houseQuery) {
+    const houses = dbContext.Houses.find(houseQuery)
+    return houses
+  }
 }
 
 
