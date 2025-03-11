@@ -18,5 +18,9 @@
     "titleBar.inactiveBackground": "#6dfbe399",
     "titleBar.inactiveForeground": "#15202b99"
   },
-  "peacock.color": "#6dfbe3"
+  "peacock.color": "#6dfbe3",
+  "cSpell.words": [
+    "gregslist",
+    "virtuals"
+  ]
 }
