@@ -17,6 +17,29 @@ class PetsService {
     return pet
   }
 
+
+  async getPetByQuery(petQuery) {
+    const pageNumber = parseInt(petQuery.page) || 1
+    const petLimit = 5
+    const skipAmount = pageNumber * petLimit - petLimit
+    delete petQuery.page
+
+    const sortBy = petQuery.sort
+    delete petQuery.sort
+
+
+    const pets = await dbContext.Pets
+      .find(petQuery)
+      .limit(petLimit)
+      .skip(skipAmount)
+      .sort(sortBy)
+      .populate('creator')
+
+
+    return pets
+  }
+
+
 }
 
 
