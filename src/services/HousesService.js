@@ -35,7 +35,6 @@ class HouseService {
       .skip(skipAmount)
       .populate('creator')
 
-
     return houses
   }
 }
