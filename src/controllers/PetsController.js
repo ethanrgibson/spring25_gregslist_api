@@ -8,6 +8,7 @@ export class PetsController extends BaseController {
     super('api/pets')
     this.router
       .get('', this.getAllPets)
+      .get('/:petId', this.getPetById)
 
   }
   async getAllPets(request, response, next) {
@@ -15,14 +16,21 @@ export class PetsController extends BaseController {
     try {
       const pets = await petService.getAllHouses()
       response.send(pets)
+    } catch (error) {
+      next(error)
+    }
+  }
 
+  async getPetById(request, response, next) {
+
+    try {
+      const petId = request.params.petId
+      const pets = await petService.getPetById(petId)
+      response.send(pets)
     } catch (error) {
       next(error)
     }
 
-
   }
-
-
 
 }

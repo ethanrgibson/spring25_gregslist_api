@@ -1,3 +1,4 @@
+import { BadRequest } from "@bcwdev/auth0provider/lib/Errors.js";
 import { dbContext } from "../db/DbContext.js"
 
 class PetsService {
@@ -7,6 +8,14 @@ class PetsService {
   }
 
 
+  getPetById(petId) {
+    const pet = dbContext.Pets.findById(petId)
+
+    if (pet == null) {
+      throw new BadRequest(`${petId} does not exist`);
+    }
+    return pet
+  }
 
 }
 
