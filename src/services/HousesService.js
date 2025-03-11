@@ -5,13 +5,13 @@ class HouseService {
 
   getAllHouses() {
 
-    const houses = dbContext.Houses.find()
+    const houses = dbContext.Houses.find().populate('creator')
     return houses
 
   }
 
   getHouseById(houseId) {
-    const house = dbContext.Houses.findById(houseId)
+    const house = dbContext.Houses.findById(houseId).populate('creator')
 
     if (house == null) {
       throw new BadRequest(`${houseId} does not exist`);
@@ -21,7 +21,7 @@ class HouseService {
 
   async getHousesByQuery(houseQuery) {
     const pageNumber = parseInt(houseQuery.page) || 1
-    const houseLimit = 10
+    const houseLimit = 5
     const skipAmount = pageNumber * houseLimit - houseLimit
     delete houseQuery.page
 
@@ -33,6 +33,7 @@ class HouseService {
       .sort(sortBy)
       .limit(houseLimit)
       .skip(skipAmount)
+      .populate('creator')
 
 
     return houses
