@@ -20,13 +20,20 @@ class HouseService {
   }
 
   async getHousesByQuery(houseQuery) {
+    const pageNumber = parseInt(houseQuery.page) || 1
+    const houseLimit = 10
+    const skipAmount = pageNumber * houseLimit - houseLimit
+    delete houseQuery.page
+
     const sortBy = houseQuery.sort
     delete houseQuery.sort
 
-
     const houses = await dbContext.Houses
       .find(houseQuery)
-      .sort('year')
+      .sort(sortBy)
+      .limit(houseLimit)
+      .skip(skipAmount)
+
 
     return houses
   }
